@@ -1,41 +1,44 @@
 // Corrugated panels, randomly placed
 // Some angled, some horizontal
-let grd 
-let panelLength = 150;   // length of each panel top edge
-let panelHeight = 100;   // vertical depth
-let angleDeg = 45;       // angled panel steepness
-let ribDensity = 24;      // ribs across panel
-let numPanels = 20;      // how many panels to draw
-let cnv 
-function preload(){
-  grd = loadImage("g16.png")
-  
+let grd;
+let panelLength = 150; // length of each panel top edge
+let panelHeight = 100; // vertical depth
+let angleDeg = 45; // angled panel steepness
+let ribDensity = 24; // ribs across panel
+let numPanels = 20; // how many panels to draw
+let cnv;
+function preload() {
+  grd = loadImage("g16.png");
 }
 
 function setup() {
-  cnv =createCanvas(800, 800);
-  let cx = (windowWidth-width)/2
-  let cy = (windowHeight-height)/2
-  cnv.position(cx,cy)
-  grd.resize(width,height)
-  
-  drawthem()
+  cnv = createCanvas(800, 800);
+  let cx = (windowWidth - width) / 2;
+  let cy = (windowHeight - height) / 2;
+  cnv.position(cx, cy);
+  grd.resize(width, height);
+
+  drawthem();
 }
 
-function touchStarted(){
-  drawthem()
+function touchStarted() {
+  drawthem();
 }
 
-function drawthem(){
+function drawthem() {
   background(255);
-  image(grd,0,0)
+  image(grd, 0, 0);
 
   for (let i = 0; i < numPanels; i++) {
-    let x = random(width-20) +40;
-    let y = random(height-100)+40;
+    let x = random(width - panelLength * 2) + panelLength;
+    let y = random(height - panelHeight * 2.3) + 40;
 
     // 50% chance: angled, 50%: horizontal
-    let ang = random() < 0.5 ? angleDeg : 0;
+    // let ang = random() < 0.5 ? angleDeg : 0;
+    // 3 options
+    let options = [0, 45, 135];
+    let ang = random(options);
+
     drawPanel(x, y, panelLength, panelHeight, ang, ribDensity);
   }
 }
